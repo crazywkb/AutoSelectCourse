@@ -59,5 +59,4 @@ class AutoSelect(object):
         self.__generate_post_data_list()
         for data in self.data_list:
             response = self.session.post(url=settings.SELECT_COURSE['url'], data=data)
-            print(response.body)
             print(response.text)
