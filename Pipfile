@@ -10,6 +10,7 @@ requests = "*"
 wheel = "*"
 lxml = "*"
 "beautifulsoup4" = "*"
+colorama = "*"
 
 [dev-packages]
 

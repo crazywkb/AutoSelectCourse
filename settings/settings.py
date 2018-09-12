@@ -1,5 +1,5 @@
-USERNAME = "2220170618"
-PASSWORD = "300014"
+USERNAME = "3120181030"
+PASSWORD = "909296wkb"
 
 LOGIN = {
     'url': 'https://login.bit.edu.cn/cas/login',

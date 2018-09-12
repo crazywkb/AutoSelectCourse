@@ -92,8 +92,9 @@ class CourseSelect(object):
         data['c0-e21'] = 'string:' + quote(course['class_hours'])
         data['c0-e22'] = 'string:' + quote(course['class_score'])
         data['c0-e23'] = 'string:' + ''
+        return data
 
-    def run(self):
+    def entry(self):
         print("Start to crawl the courses...")
         self.get_courses()
         print("Courses have been crawled and saved...")
@@ -105,20 +106,36 @@ class CourseSelect(object):
         print("2. delete course")
         print("3. run")
 
+        operations = {
+            '1': self.add_course,
+            '2': self.delete_course,
+            '3': self.run
+        }
+
         while True:
             operation = input()
-            if operation == "1":
-                print("Please enter course_id: ")
+            operations[operation]()
 
-    def add_course(self, course_id):
-        print("Please enter the course_ids: ")
-        while True:
-            course_id = input()
-            if not course_id:
-                break
-            else:
-                print("=" * 30)
-                print("Class info: ")
-                course = self.courses[course_id]
-                for key, value in course.items():
-                    print(key + " : " + value)
+    def add_course(self):
+        course_id = input("Please enter course_id: ")
+        course = self.courses.get(course_id, default=None)
+        if not course:
+            print("Course doesn't exist.")
+        else:
+            self.task_list.append(self.post_data_format(course))
+
+    def delete_course(self):
+        course_id = input("Please enter course_id to del: ")
+        course = self.courses.get(course_id, default=None)
+        if not course:
+            print("Course doesn't exist in task list.")
+        else:
+            self.task_list.remove(self.post_data_format(course))
+
+    def run(self):
+        pass
+
+
+if __name__ == '__main__':
+    course_selector = CourseSelect()
+    course_selector.entry()
