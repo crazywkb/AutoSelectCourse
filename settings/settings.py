@@ -1,15 +1,8 @@
-USERNAME = "3120181030"
-PASSWORD = "909296wkb"
-
 LOGIN = {
     'url': 'https://login.bit.edu.cn/cas/login',
     'params': {
         'service': 'http://grdms.bit.edu.cn/yjs/login_cas.jsp'
     },
-    'data': {
-        'username': USERNAME,
-        'password': PASSWORD
-    }
 }
 
 QUERY_CLASS = {
@@ -20,7 +13,7 @@ QUERY_CLASS = {
         'pager.offset': "0",
     },
     'data': {
-        "criteria": "kkxn = '2018' and kkxq = '第一学期'".encode('gbk'),
+        "criteria": "kkxn = '%s' and kkxq = '%s'",
         "maxPageItems": "2000",
         "maxIndexPages": "5",
         "defName": "pyjxjhStuQuery",

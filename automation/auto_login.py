@@ -1,25 +1,57 @@
 import requests
+from bs4 import BeautifulSoup
 from settings import settings
 from colorama import Fore
 
 
 class AutoLogin(object):
     def __init__(self):
-        self.username = None
-        self.password = None
-        self.necessary_params = None
+        self.__username = None
+        self.__password = None
+        self.__necessary_params = None
+        self.session = requests.Session()
+        self.__data = dict()
 
-    def __get_user_info(self):
-        self.username = input(Fore.GREEN + "Please enter username: ")
-        self.password = input(Fore.GREEN + "Please enter password: ")
+    def __get_user_info(self, username="3120181030", password="909296wkb"):
+        print(Fore.LIGHTBLUE_EX + "="*40)
+        # self.__username = input(Fore.GREEN + "Please enter username: ")
+        # self.__password = input(Fore.GREEN + "Please enter password: ")
+        print(Fore.GREEN + "Please enter username: ", end="")
+        print(username)
+        print(Fore.GREEN + "Please enter password: ", end="")
+        print(password)
+
+        self.__username = username
+        self.__password = password
 
     def __get_necessary_params(self):
-        pass
+        response = self.session.get(url=settings.LOGIN['url'], params=settings.LOGIN['params'])
+        soup = BeautifulSoup(response.text, features='lxml')
+        raw_data = soup.findAll('input', type='hidden')
+
+        for param in raw_data:
+            self.__data.update(
+                {
+                    param.attrs['name']: param.attrs['value']
+                }
+            )
+
+        self.__data.update(
+            {
+                'username': self.__username,
+                'password': self.__password
+            }
+        )
 
     def login(self):
         self.__get_user_info()
         self.__get_necessary_params()
 
+        response = self.session.post(data=self.__data, **settings.LOGIN)
+        assert response.status_code == 200
+        print(Fore.BLUE + "Login successfully.")
+
 
 if __name__ == '__main__':
-    pass
+    login = AutoLogin()
+    login.login()
