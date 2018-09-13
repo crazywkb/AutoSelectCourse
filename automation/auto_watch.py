@@ -82,7 +82,7 @@ class AutoWatcher(object):
             class_name:分离
             class_num:1000120
             class_time:星期五
-            class_teacher:小明
+            class_teachers:小明
             ...
             很多参数，可以组合，不过这两三个就足够用了
             所有的参数都是包含匹配
@@ -126,7 +126,7 @@ class AutoWatcher(object):
             class_name:分离
             class_num:1000120
             class_time:星期五
-            class_teacher:小明
+            class_teachers:小明
             ...
             很多参数，可以组合，不过这两三个就足够用了
             所有的参数都是包含匹配
