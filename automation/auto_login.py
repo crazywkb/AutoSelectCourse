@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 from settings import settings
-from colorama import Fore
+from colorama import Fore, init
+init()
 
 
 class AutoLogin(object):
@@ -14,8 +15,8 @@ class AutoLogin(object):
 
     def __get_user_info(self):
         print(Fore.LIGHTBLUE_EX + "="*40)
-        self.__username = input(Fore.GREEN + "Please enter username: ")
-        self.__password = input(Fore.GREEN + "Please enter password: ")
+        self.__username = input("Please enter username: ")
+        self.__password = input("Please enter password: ")
 
     def __get_necessary_params(self):
         response = self.session.get(url=settings.LOGIN['url'], params=settings.LOGIN['params'])
