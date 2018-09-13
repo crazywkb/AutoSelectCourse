@@ -1,12 +1,12 @@
 import random
 import re
+import time
 from urllib.parse import quote, unquote
 
 from bs4 import BeautifulSoup
 from colorama import Fore
 
 from settings import settings
-import time
 
 
 class AutoSelect(object):
@@ -78,7 +78,7 @@ class AutoSelect(object):
         print(Fore.LIGHTBLUE_EX + "Running crazyly ......")
         while len(self.data_list):
             data_list = list()
-            time.sleep(1/limit)
+            time.sleep(1 / limit)
             for data in self.data_list:
                 response = self.session.post(url=settings.SELECT_COURSE['url'], data=data)
                 if 'success' in response.text:

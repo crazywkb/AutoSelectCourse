@@ -97,14 +97,18 @@ class AutoWatcher(object):
                 param = input()
                 if not param:
                     break
-                key, value = param.split(":")
-                filter_params[key] = value
+                try:
+                    key, value = param.split(":")
+                    filter_params[key] = value
+                except Exception:
+                    print(Fore.RED + "Error format params.")
+                    return
 
             query_list = self.get_courses_by_params(**filter_params)
             for index, course in enumerate(query_list):
                 print(str(index) + "    " + str(course))
 
-            index = int(input("Please choose the course index to add, -1 to exit: "))
+            index = int(input("\nPlease choose the course index to add, -1 to exit: "))
 
             if index == -1:
                 break
@@ -112,7 +116,7 @@ class AutoWatcher(object):
                 print("You have chosen: " + str(query_list[index]))
                 result_list.append(query_list[index])
 
-        print("Total courses: " + str(result_list))
+        print("\nTotal courses: " + str(result_list))
         return result_list
 
     def get_students_of_course(self):

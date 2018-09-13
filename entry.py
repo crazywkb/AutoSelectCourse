@@ -1,7 +1,8 @@
 from colorama import Fore, init
+
 from automation.auto_login import AutoLogin
-from automation.auto_watch import AutoWatcher
 from automation.auto_select import AutoSelect
+from automation.auto_watch import AutoWatcher
 
 init()
 

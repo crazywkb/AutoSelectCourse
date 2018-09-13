@@ -60,4 +60,3 @@ SELECT_COURSE = {
         'batchId': '3',
     }
 }
-
