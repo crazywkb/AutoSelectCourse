@@ -88,25 +88,24 @@ class AutoWatcher(object):
                 key, value = param.split(":")
                 filter_params[key] = value
 
-            print(filter_params)
             query_list = self.get_courses_by_params(**filter_params)
             for index, course in enumerate(query_list):
                 print(str(index) + "    " + str(course))
 
             index = int(input("Please choose the course index to add, -1 to exit: "))
-            print(index)
+
             if index == -1:
                 break
             else:
+                print("You have chosen: " + str(query_list[index]))
                 result_list.append(query_list[index])
-                print(result_list)
 
-        print(result_list)
+        print("Total courses: " + str(result_list))
         return result_list
 
     def get_students_of_course(self):
         """
-        嗯，我就是犯懒了，这个接口格式化没写， 谁爱写谁写
+        嗯，我就是犯懒了，这个接口格式化没写， 谁爱写谁写，偷偷告诉你，教务处前端还漏了初始化课程的接口
         :return:
         """
         filter_params = dict()

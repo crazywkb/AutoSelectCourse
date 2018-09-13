@@ -3,6 +3,8 @@ from automation.auto_login import AutoLogin
 from automation.auto_watch import AutoWatcher
 from automation.auto_select import AutoSelect
 
+print(Fore.LIGHTBLUE_EX + "Author: CrazyK")
+print(Fore.LIGHTBLUE_EX + "Time:   2018-09-12 21:20:22")
 
 print(Fore.LIGHTBLUE_EX + "AutoSelectCourse 1.0.0 (Test)")
 print(Fore.LIGHTBLUE_EX + "=" * 40)

@@ -83,5 +83,5 @@ class AutoSelect(object):
                         data_list.append(data)
                     else:
                         print(Fore.RED + reason)
-                        print(Fore.RED + "This course has been removed from task list.")
+                        print("This course has been removed from task list.")
             self.data_list = data_list
