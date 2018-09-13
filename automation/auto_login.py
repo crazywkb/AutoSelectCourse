@@ -12,7 +12,7 @@ class AutoLogin(object):
         self.session = requests.Session()
         self.__data = dict()
 
-    def __get_user_info(self, username="3120180980", password="He110word!"):
+    def __get_user_info(self, username="3120181030", password="909296wkb"):
         print(Fore.LIGHTBLUE_EX + "="*40)
         # self.__username = input(Fore.GREEN + "Please enter username: ")
         # self.__password = input(Fore.GREEN + "Please enter password: ")

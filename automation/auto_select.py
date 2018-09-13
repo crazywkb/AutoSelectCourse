@@ -1,6 +1,9 @@
-from urllib.parse import quote
+import random
+import re
+from urllib.parse import quote, unquote
 
 from bs4 import BeautifulSoup
+from colorama import Fore
 
 from settings import settings
 
@@ -23,7 +26,15 @@ class AutoSelect(object):
                 }
             )
 
+        response = self.session.get(**settings.GET_ENGINE_JS)
+
+        script_session_id = re.search('dwr.engine._origScriptSessionId = "(.*)";', response.text)[0]
+        script_session_id = script_session_id + str(int(random.random() * 1000))
+        http_session_id = self.session.cookies.get("JSESSIONID", domain='grdms.bit.edu.cn/yjs', default=None)
+
         data = settings.SELECT_COURSE['data']
+        data['httpSessionId'] = http_session_id
+        data['scriptSessionId'] = script_session_id
         data['c0-e1'] = 'string:' + necessary_data['xh']
         data['c0-e2'] = 'string:' + necessary_data['lb']
         data['c0-e3'] = 'string:' + necessary_data['studentId']
@@ -57,6 +68,20 @@ class AutoSelect(object):
     def run_and_wait(self):
         self.__get_necessary_data()
         self.__generate_post_data_list()
-        for data in self.data_list:
-            response = self.session.post(url=settings.SELECT_COURSE['url'], data=data)
-            print(response.text)
+        print(Fore.LIGHTBLUE_EX + "Running crazyly ......")
+        while len(self.data_list):
+            data_list = list()
+
+            for data in self.data_list:
+                response = self.session.post(url=settings.SELECT_COURSE['url'], data=data)
+                if 'success' in response.text:
+                    print(Fore.RED + unquote(data['c0-e17']) + "    success.")
+                elif 'failure' in response.text:
+                    reason = re.findall('\["failure","(.*)"\]', response.text)[0].encode("utf-8").decode(
+                        'unicode_escape')
+                    if "超过限选人数" in reason:
+                        data_list.append(data)
+                    else:
+                        print(Fore.RED + reason)
+                        print(Fore.RED + "This course has been removed from task list.")
+            self.data_list = data_list

@@ -25,14 +25,20 @@ while True:
     print(Fore.LIGHTBLUE_EX + "=" * 40)
     print(Fore.GREEN + "Operations: ")
     print(Fore.GREEN + "1. Add courses.")
-    print(Fore.GREEN + "2. Start to fuck grdms.")
+    print(Fore.GREEN + "2. Query students of course.")
+    print(Fore.GREEN + "3. Start to fuck grdms.")
+    print(Fore.GREEN + "4. Exit.")
     operation = input("Please choose operation: ")
 
     if operation == "1":
         course_list = watcher.crate_task_list()
     elif operation == "2":
+        watcher.get_students_of_course()
+    elif operation == "3":
         selector = AutoSelect(watcher.session, course_list)
         selector.run_and_wait()
+    elif operation == "4":
+        exit(0)
     else:
         print("Enter again, wrong operation.")
         continue

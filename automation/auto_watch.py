@@ -1,5 +1,6 @@
 import re
 
+from bs4 import BeautifulSoup
 from colorama import Fore
 
 from settings import settings
@@ -54,7 +55,7 @@ class AutoWatcher(object):
 
     def get_courses_by_params(self, **kwargs):
         """
-        quick query.
+        quick query
         :param kwargs: year, semester, class, class_num, class_id, class_name, class_time, teachers
                        class_hours, class_score, selected, total
         :return:
@@ -90,13 +91,51 @@ class AutoWatcher(object):
             print(filter_params)
             query_list = self.get_courses_by_params(**filter_params)
             for index, course in enumerate(query_list):
-                print(str(index) + str(course))
+                print(str(index) + "    " + str(course))
 
             index = int(input("Please choose the course index to add, -1 to exit: "))
+            print(index)
             if index == -1:
                 break
             else:
                 result_list.append(query_list[index])
+                print(result_list)
 
         print(result_list)
         return result_list
+
+    def get_students_of_course(self):
+        """
+        嗯，我就是犯懒了，这个接口格式化没写， 谁爱写谁写
+        :return:
+        """
+        filter_params = dict()
+        print(Fore.LIGHTBLUE_EX + "=" * 40 + "\n")
+        print(Fore.GREEN + "Please enter key:value as a filter: ")
+        while True:
+            param = input()
+            if not param:
+                break
+            key, value = param.split(":")
+            filter_params[key] = value
+
+        print(filter_params)
+        query_list = self.get_courses_by_params(**filter_params)
+        for index, course in enumerate(query_list):
+            print(str(index) + str(course))
+
+        index = int(input("Please choose the course index to query, -1 to exit: "))
+        if index == -1:
+            return
+        else:
+            course = query_list[index]
+            params = settings.QUERY_STUDENTS['params']
+            params['id'] = course['class_id']
+
+            response = self.session.get(**settings.QUERY_STUDENTS)
+            soup = BeautifulSoup(response.text, features='lxml')
+            result = soup.findAll('td', attrs={'align': 'left'})
+            for item in result:
+                temp = item.get_text().strip()
+                if temp:
+                    print(temp)
