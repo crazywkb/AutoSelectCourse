@@ -76,6 +76,18 @@ class AutoWatcher(object):
         return course_list
 
     def crate_task_list(self):
+        print(
+            """
+            example:
+            class_name:分离
+            class_num:1000120
+            class_time:星期五
+            class_teacher:小明
+            ...
+            很多参数，可以组合，不过这两三个就足够用了
+            所有的参数都是包含匹配
+            """
+        )
         result_list = list()
         while True:
             filter_params = dict()
@@ -108,6 +120,18 @@ class AutoWatcher(object):
         嗯，我就是犯懒了，这个接口格式化没写， 谁爱写谁写，偷偷告诉你，教务处前端还漏了初始化课程的接口
         :return:
         """
+        print(
+            """
+            example:
+            class_name:分离
+            class_num:1000120
+            class_time:星期五
+            class_teacher:小明
+            ...
+            很多参数，可以组合，不过这两三个就足够用了
+            所有的参数都是包含匹配
+            """
+        )
         filter_params = dict()
         print(Fore.LIGHTBLUE_EX + "=" * 40 + "\n")
         print(Fore.GREEN + "Please enter key:value as a filter: ")

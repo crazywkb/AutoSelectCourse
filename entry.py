@@ -30,6 +30,7 @@ while True:
     print(Fore.GREEN + "2. Query students of course.")
     print(Fore.GREEN + "3. Start to fuck grdms.")
     print(Fore.GREEN + "4. Exit.")
+    print(Fore.GREEN + "5. Help.")
     operation = input("Please choose operation: ")
 
     if operation == "1":
@@ -41,7 +42,14 @@ while True:
         selector.run_and_wait()
     elif operation == "4":
         exit(0)
+    elif operation == "5":
+        print("""
+        1. 添加课程，创建任务列表
+        2. 查询选课的学生信息 -_-
+        3. 开始抢课哦
+        4. 退出
+        5. 求求你了，告诉我咋用吧 `_`
+        """)
     else:
         print("Enter again, wrong operation.")
         continue
-
