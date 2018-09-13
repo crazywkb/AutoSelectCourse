@@ -3,6 +3,7 @@ import re
 import time
 from urllib.parse import quote, unquote
 
+import requests
 from bs4 import BeautifulSoup
 from colorama import Fore
 
@@ -80,7 +81,14 @@ class AutoSelect(object):
             data_list = list()
             time.sleep(1 / limit)
             for data in self.data_list:
-                response = self.session.post(url=settings.SELECT_COURSE['url'], data=data)
+
+                try:
+                    response = self.session.post(url=settings.SELECT_COURSE['url'], data=data)
+                except requests.exceptions.Timeout:
+                    print("Connection Timeout, Continue to run")
+                    data_list.append(data)
+                    continue
+
                 if 'success' in response.text:
                     print(Fore.RED + unquote(data['c0-e17']) + "    success.")
                 elif 'failure' in response.text:
@@ -91,4 +99,5 @@ class AutoSelect(object):
                     else:
                         print(Fore.RED + reason)
                         print("This course has been removed from task list.")
+
             self.data_list = data_list
