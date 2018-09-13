@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from colorama import Fore
 
 from settings import settings
+import time
 
 
 class AutoSelect(object):
@@ -68,10 +69,12 @@ class AutoSelect(object):
     def run_and_wait(self):
         self.__get_necessary_data()
         self.__generate_post_data_list()
+        limit = int(input("How many times the requests will post per second(1-40): "))
+
         print(Fore.LIGHTBLUE_EX + "Running crazyly ......")
         while len(self.data_list):
             data_list = list()
-
+            time.sleep(1/limit)
             for data in self.data_list:
                 response = self.session.post(url=settings.SELECT_COURSE['url'], data=data)
                 if 'success' in response.text:
