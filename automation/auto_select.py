@@ -71,6 +71,10 @@ class AutoSelect(object):
         self.__generate_post_data_list()
         limit = int(input("How many times the requests will post per second(1-40): "))
 
+        if limit < 1 or limit > 40:
+            print("Error input.")
+            return 0
+
         print(Fore.LIGHTBLUE_EX + "Running crazyly ......")
         while len(self.data_list):
             data_list = list()
